@@ -1,0 +1,65 @@
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "ncpl"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "ncpl-hello-world"
+  namespace: "ncpl"
+  labels:
+    app: "ncpl-hello-world"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "ncpl-hello-world"
+  template:
+    metadata:
+      labels:
+        app: "ncpl-hello-world"
+    spec:
+      containers:
+      - name: "spring-boot-app-1"
+        image: "northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest"
+---
+apiVersion: "autoscaling/v2"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "ncpl-hello-world-hpa-zs4f"
+  namespace: "ncpl"
+  labels:
+    app: "ncpl-hello-world"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "ncpl-hello-world"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      target:
+        type: "Utilization"
+        averageUtilization: 80
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "ncpl-hello-world-service"
+  namespace: "ncpl"
+  labels:
+    app: "ncpl-hello-world"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: "ncpl-hello-world"
+  type: "LoadBalancer"
+  loadBalancerIP: ""
