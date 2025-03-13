@@ -5,8 +5,9 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     script: |
-      docker build -t northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2:latest .
+      docker build -t northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest .
+      
     automapSubstitutions: true
 
 images:
-  - 'northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2:latest'
+  - 'northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest'
