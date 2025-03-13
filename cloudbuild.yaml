@@ -1,0 +1,12 @@
+steps:
+  - name: maven:3.3-jdk-8
+    entrypoint: mvn
+    args: ['package']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    script: |
+      docker build -t northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2:latest .
+    automapSubstitutions: true
+
+images:
+  - 'northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2:latest'
