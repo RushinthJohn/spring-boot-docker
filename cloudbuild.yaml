@@ -1,5 +1,5 @@
 steps:
-  - name: maven:3.6.1-jdk-7
+  - name: maven:3.8.5-openjdk-17
     entrypoint: mvn
     args: ['package']
 
