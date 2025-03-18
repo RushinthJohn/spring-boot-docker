@@ -1,20 +1,30 @@
 steps:
+  # Build package using maven
   - name: maven:3.8.5-openjdk-17
     entrypoint: mvn
     args: ['package']
 
+  # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     script: |
-      docker build -t northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest .
+      docker build -t northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest .
     automapSubstitutions: true
   
+  # Deploy container to Kubernetes
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - run
       - --filename=gke.yaml
-      - --image=northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest
-      - --location=northamerica-northeast2
-      - --cluster=ncpl-gke-cluster
+      - --image=northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest
+      - --location=northamerica-northeast1
+      - --cluster=ncpl-cluster-1
+  
+  # Deploy app to App Engine
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+    timeout: '1600s'
 
+# Publish image to registry
 images:
-  - 'northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest'
+  - 'northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest'

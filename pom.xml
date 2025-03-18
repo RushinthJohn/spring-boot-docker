@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mkyong</groupId>
-    <artifactId>docker-spring-boot</artifactId>
+    <artifactId>ncpl-hello-world</artifactId>
     <version>1.0</version>
 
-    <name>docker-spring-boot</name>
+    <name>ncpl-hello-world</name>
     <url></url>
 
     <parent>
@@ -67,9 +67,16 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <projectId>ncpl-hello-world</projectId>
+                    <version>1.0</version>
+                    <promote>false</promote>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-
 </project>

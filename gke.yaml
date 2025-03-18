@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: "spring-boot-app-1"
-        image: "northamerica-northeast2-docker.pkg.dev/ncpl-449223/ncpl-project2/spring-boot-app:latest"
+        image: "northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest"
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
