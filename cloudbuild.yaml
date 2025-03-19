@@ -9,7 +9,11 @@ steps:
     script: |
       docker build -t northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest .
     automapSubstitutions: true
-  
+
+  # Publish image to registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest"]
+
   # Deploy container to Kubernetes
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
@@ -23,10 +27,6 @@ steps:
     entrypoint: 'bash'
     args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
     timeout: '1600s'
-
-# Publish image to registry
-images:
-  - 'northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
