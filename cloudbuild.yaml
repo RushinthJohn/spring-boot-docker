@@ -15,7 +15,6 @@ steps:
     args:
       - run
       - --filename=gke.yaml
-      - --image=northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest
       - --location=northamerica-northeast1
       - --cluster=ncpl-cluster-1
   
