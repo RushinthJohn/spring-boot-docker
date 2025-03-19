@@ -28,3 +28,6 @@ steps:
 # Publish image to registry
 images:
   - 'northamerica-northeast1-docker.pkg.dev/ncpl-449223/ncpl-project5/spring-boot-app:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
